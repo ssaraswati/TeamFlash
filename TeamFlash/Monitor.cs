@@ -5,6 +5,9 @@ namespace TeamFlash
 {
     class Monitor
     {
+
+        readonly StringBuilder deviceName = new StringBuilder(DelcomBuildIndicator.MAXDEVICENAMELEN);
+
         public void SetLed(byte led, bool turnItOn, bool flashIt)
         {
             SetLed(led, turnItOn, flashIt, null, false);
@@ -43,15 +46,11 @@ namespace TeamFlash
             DelcomBuildIndicator.DelcomCloseDevice(hUsb);
         }
 
-        readonly StringBuilder deviceName = new StringBuilder(DelcomBuildIndicator.MAXDEVICENAMELEN);
-
         uint GetDelcomDeviceHandle()
         {
-            if (string.IsNullOrEmpty(deviceName.ToString()))
-            {
-                // Search for the first match USB device, For USB IO Chips use USBIODS
-                DelcomBuildIndicator.DelcomGetNthDevice(DelcomBuildIndicator.USBDELVI, 0, deviceName);
-            }
+
+            // Search for the first match USB device, For USB IO Chips use USBIODS
+            DelcomBuildIndicator.DelcomGetNthDevice(DelcomBuildIndicator.USBDELVI, 0, deviceName);
 
             var hUsb = DelcomBuildIndicator.DelcomOpenDevice(deviceName, 0); // open the device
             return hUsb;

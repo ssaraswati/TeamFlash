@@ -36,6 +36,14 @@
             _monitor.SetLed(DelcomBuildIndicator.BLUELED, false, false);
         }
 
+        public void Flash()
+        {
+            VerboseThemeChange("RED");
+            _monitor.SetLed(DelcomBuildIndicator.REDLED, true, true);
+            _monitor.SetLed(DelcomBuildIndicator.GREENLED, false, false);
+            _monitor.SetLed(DelcomBuildIndicator.BLUELED, false, false);
+        }
+
         static void VerboseThemeChange(string newTheme)
         {
             Logger.Verbose("Switching LED to {0}.", newTheme);
